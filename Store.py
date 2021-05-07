@@ -1,19 +1,15 @@
-import mysql.connect
-import json as js
-import pandas as pd
+import mysql.connecter
 import random
 my_db = mysql.connector.connect(host='localhost',user='root',password='password')
 my_cursor = my_db.cursor()
 
 my_cursor.execute('create database Storedb')
-my_db =
-
-mysql.connector.connect(host='localhost',user='root',password='password',database='Storedb')
+my_db =mysql.connector.connect(host='localhost',user='root',password='password',database='Storedb')
 
 my_cursor = my_db.cursor()
 
 
-my_cursor.execute('create table Sales(id int primary key AUTO_INCREMENT,name varchar(30),Product Brand varchar(30),Product Model varchar(30),Total int,Quantity int))
+my_cursor.execute('create table Sales(id int primary key AUTO_INCREMENT,name varchar(30),Product_Brand varchar(30),Product_Model varchar(30),Total int,Quantity int)')
 
 class Start:
 
@@ -326,7 +322,7 @@ class Billing:
         print("Price  :  Rs.", bill)
         print("Total :  Rs.", total)
         print("~~~~~~~~~~~~~~~~~~~~~~~")
-        query=insert into Sales(id,name,Product Brand,Product Model,Total,Quantity) values(%s,%s,%s,%s,%s,%s)
+        query=insert into Sales(id,name,Product_Brand,Product_Model,Total,Quantity) values(%s,%s,%s,%s,%s,%s)
         val=(1,uID,Brand,Model,bill,quantity)
         my_cursor.execute(query,val)
         my_db.commit()
@@ -340,7 +336,7 @@ class Billing:
 
 
 class cancell:
-    def cancell(self,d):
+    def cancell(self):
 
         Apple_quant = {'iphone 12 max pro': 10, 'iphone 11 pro max': 10, 'iphone XR': 10, 'iphone SE': 10}
         Samsung_quant = {'Galaxy Note 10': 10, 'Galaxy Duos': 10, 'Galaxy F62': 10}
@@ -358,8 +354,8 @@ class cancell:
 
         uID=input("Enter User name")
         if uID in Sales.name :
-                 g=my_cursor.execute('select Sales.product Brand where name=uID')
-                 h=my_cursor.execute('select Sales.product Model where name=uID')
+                 g=my_cursor.execute('select Sales.product_Brand where name=uID')
+                 h=my_cursor.execute('select Sales.product_Model where name=uID')
                  i=my_cursor.execute('select Sales.Quantity where name=uID')
                  j=my_cursor.execute('select Sales.Total where name=uID')
                 print("~~~~~~~~~~~~~~~~~~~~Your Order~~~~~~~~~~~~~~~~~~~~~")
@@ -522,7 +518,7 @@ class Store(Start,Gadgets,Mobiles,Billing,TVs,Laptops,ops,cancell):
                 obj = super().ops()
 
         elif obj == 'C':
-                super().cancell(d)
+                super().cancell()
         return uID,Users
 
 
