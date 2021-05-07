@@ -322,8 +322,8 @@ class Billing:
         print("Price  :  Rs.", bill)
         print("Total :  Rs.", total)
         print("~~~~~~~~~~~~~~~~~~~~~~~")
-        query=insert into Sales(id,name,Product_Brand,Product_Model,Total,Quantity) values(%s,%s,%s,%s,%s,%s)
-        val=(1,uID,Brand,Model,bill,quantity)
+        query=insert into Sales(name,Product_Brand,Product_Model,Total,Quantity) values(%s,%s,%s,%s,%s)
+        val=(uID,Brand,Model,bill,quantity)
         my_cursor.execute(query,val)
         my_db.commit()
         
