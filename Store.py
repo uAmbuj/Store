@@ -359,14 +359,18 @@ class cancell:
             if uID in i[0]:
         	uID=input("Enter User name")
         	if uID in Sales.name :
-                	 g=my_cursor.execute('select Sales.product_Brand where name=uID')
-                 	 h=my_cursor.execute('select Sales.product_Model where name=uID')
-                 	 i=my_cursor.execute('select Sales.Quantity where name=uID')
-                 	 j=my_cursor.execute('select Sales.Total where name=uID')
+                	 my_cursor.execute('select Sales.product_Brand where name=%s',(uID,))
+                         g=my_cursor.fetchone()
+                 	 my_cursor.execute('select Sales.product_Model where name=%s',(uID,))
+		         h=my_cursor.fetchone()
+                 	 my_cursor.execute('select Sales.Quantity where name=%s',(uID,))
+			 i=my_cursor.fetchone()
+                 	 my_cursor.execute('select Sales.Total where name=%s',(uID,))
+			 j=my_cursor.fetchone()
                 	print("~~~~~~~~~~~~~~~~~~~~Your Order~~~~~~~~~~~~~~~~~~~~~")
-                	print("Prodact name           ", g,h )
-                	print("Quantity               ", i)
-                	print("Refund bill        Rs. ", j)
+                	print("Prodact name           ", g[0],h[0] )
+                	print("Quantity               ", i[0])
+                	print("Refund bill        Rs. ", j[0])
                 	print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
                 	canin = input("DO YOU REALLY WANT TO CANCEL THE BOOKING?Y/N")
                 	if (canin == 'Y'):
@@ -376,10 +380,11 @@ class cancell:
                     		cusotp = input("Enter OTP:")
                     		if int(cusotp) == nonchane:
 
-                        		a=eval(brand_to_quant[g]).get(h)
-                        		a+=eval(brand_to_quant[i]).get(h)+i
+                        		a=eval(brand_to_quant[g[0]]).get(h[0])
+                        		a+=eval(brand_to_quant[g[0]]).get(h[0])+i[0]
 
                         		my_cursor.execute('delete from Sales where name=%s',(uID,))
+					my_db.commit()
                         		print("#######Cancellation Confirmed########")
                 else:
                     run.runner()
