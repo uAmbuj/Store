@@ -351,35 +351,40 @@ class cancell:
         Leno_quant = {'Model L1': 10, 'Model L2': 10, 'Model L3': 10}
         brand_to_quant={'Apple':'Apple_quant','Samsung':'Samsung_quant','Realme':'Realme_quant','xiaomi':'xiaomi_quant','HP':'HP_quant','Dell':'Dell_quant','Lenovo':'Leno_quant','LG':'LG_quant','Sam':'Sam_quant','Sony':'Sony_quant'}
 
+        my_cursor.execute('select name from sales')
+        k=my_cursor.fetchall()
 
-        uID=input("Enter User name")
-        if uID in Sales.name :
-                 g=my_cursor.execute('select Sales.product_Brand where name=uID')
-                 h=my_cursor.execute('select Sales.product_Model where name=uID')
-                 i=my_cursor.execute('select Sales.Quantity where name=uID')
-                 j=my_cursor.execute('select Sales.Total where name=uID')
-                print("~~~~~~~~~~~~~~~~~~~~Your Order~~~~~~~~~~~~~~~~~~~~~")
-                print("Prodact name           ", g,h )
-                print("Quantity               ", i)
-                print("Refund bill        Rs. ", j)
-                print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-                canin = input("DO YOU REALLY WANT TO CANCEL THE BOOKING?Y/N")
-                if (canin == 'Y'):
-                    genotp = (random.randint(1000, 9999))
-                    nonchane = genotp
-                    print(nonchane)
-                    cusotp = input("Enter OTP:")
-                    if int(cusotp) == nonchane:
+        for i in k:
 
-                        a=eval(brand_to_quant[g]).get(h)
-                        a+=eval(brand_to_quant[i]).get(h)+i
+            if uID in i[0]:
+        	uID=input("Enter User name")
+        	if uID in Sales.name :
+                	 g=my_cursor.execute('select Sales.product_Brand where name=uID')
+                 	 h=my_cursor.execute('select Sales.product_Model where name=uID')
+                 	 i=my_cursor.execute('select Sales.Quantity where name=uID')
+                 	 j=my_cursor.execute('select Sales.Total where name=uID')
+                	print("~~~~~~~~~~~~~~~~~~~~Your Order~~~~~~~~~~~~~~~~~~~~~")
+                	print("Prodact name           ", g,h )
+                	print("Quantity               ", i)
+                	print("Refund bill        Rs. ", j)
+                	print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+                	canin = input("DO YOU REALLY WANT TO CANCEL THE BOOKING?Y/N")
+                	if (canin == 'Y'):
+                    		genotp = (random.randint(1000, 9999))
+                    		nonchane = genotp
+                    		print(nonchane)
+                    		cusotp = input("Enter OTP:")
+                    		if int(cusotp) == nonchane:
 
-                        my_cursor.execute('delete from Sales where name=uID')
-                        print("#######Cancellation Confirmed########")
+                        		a=eval(brand_to_quant[g]).get(h)
+                        		a+=eval(brand_to_quant[i]).get(h)+i
+
+                        		my_cursor.execute('delete from Sales where name=%s',(uID,))
+                        		print("#######Cancellation Confirmed########")
                 else:
                     run.runner()
         else:
-                print("No such customer available")
+              print("No such customer available")
 
 class Laptops:
 
